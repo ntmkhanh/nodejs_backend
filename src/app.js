@@ -1,11 +1,11 @@
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+// app.use(cors());
+// app.use(express.json());
 app.get('/', (req, res) => {
-    res.json({message: 'Welcome to nodejs backend'})
+    res.render('index.ejs')
 })
 
 module.exports = app
