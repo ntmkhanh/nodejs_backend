@@ -1,14 +1,13 @@
 require('dotenv').config();
-const app = require('./src/app');
 const configViewEngine = require('./src/config/viewEngine')
 const webRouter = require('./src/routes/web')
 const connection = require('./src/config/database')
-const express = require("express")
-
-
-// //config req.body
+const express = require('express')
+const app = express()
+//config req.body
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({extended: true}))
+
 
 //config
 configViewEngine(app)
@@ -17,11 +16,11 @@ configViewEngine(app)
 app.use('/', webRouter)
 
 // execute will internally call prepare and query
-connection.execute(
-    'SELECT * FROM USER',
-    function(err, results, fields) {
-      // console.log(">>>check result:", results); // results contains rows returned by server
-    })
+// connection.execute(
+//     'SELECT * FROM USER',
+//     function(err, results, fields) {
+//       // console.log(">>>check result:", results); // results contains rows returned by server
+//     })
 
 const PORT = process.env.PORT || 3001;
 const HOST_NAME = process.env.HOST_NAME;
