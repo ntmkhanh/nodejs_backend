@@ -3,6 +3,12 @@ const app = require('./src/app');
 const configViewEngine = require('./src/config/viewEngine')
 const webRouter = require('./src/routes/web')
 const connection = require('./src/config/database')
+const express = require("express")
+
+
+// //config req.body
+app.use(express.json())
+app.use(express.urlencoded())
 
 //config
 configViewEngine(app)
@@ -14,8 +20,7 @@ app.use('/', webRouter)
 connection.execute(
     'SELECT * FROM USER',
     function(err, results, fields) {
-      console.log(">>>check result:", results); // results contains rows returned by server
-      console.log(fields); // fields contains extra meta data about results, if available
+      // console.log(">>>check result:", results); // results contains rows returned by server
     })
 
 const PORT = process.env.PORT || 3001;
