@@ -7,34 +7,76 @@
     <link rel="stylesheet" href="/css/style.css">
 
 </head>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background-color: rgb(215, 208, 206);
+    }
+
+    .table_container {
+        padding: 10px 15px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 30px;
+    }
+</style>
 
 <body>
     <ul>
         <li><a href="#home">Home</a></li>
-        <li><a href="new">News</a></li>
-        <li><a href="contact">Contact</a></li>
-        <li><a href="about">About</a></li>
+        <li><a href="/create">Create User</a></li>
+
     </ul>
-    <div class="add_new_user">
-        <form action="/create_user" method="post">
-            <fieldset>
-                <legend>Add New User</legend>
-                <div class="input_group">
-                    <label for="email">Email: </label>
-                    <input type="text" id="email" name="email">
-                </div>
-                <div class="input_group">
-                    <label for="name">Name: </label>
-                    <input type="text" id="name" name="myname">
-                </div>
-                <div class="input_group">
-                    <label for="city">City: </label>
-                    <input type="text" id="city" name="city">
-                </div>
-                <button>Save</button>
-            </fieldset>
-        </form>
-    </div>
+        <div class="table_container">
+            <div class="title">User List</div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Action</th>
+                </tr>
+                <% listUser.forEach(function(user){ %>
+                    <tr>
+                        <td><%= user.ID %></td>
+                        <td><%= user.EMAIL %></td>
+                        <td><%= user.NAME %></td>
+                        <td><%= user.CITY %></td>
+                        <td>
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </td>
+                    </tr>
+                <% }) %>
+                <!-- <% for (let i=0; i < listUser.length; i++ ) { %>
+                    <tr>
+                        <td><%= listUser[i].id %></td>
+                        <td><%= listUser[i].email %></td>
+                        <td><%= listUser[i].name %></td>
+                        <td><%= listUser[i].city %></td>
+                        <td>
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </td>
+                    </tr>
+                <% } %> -->
+                
+            </table>
+        </div>
 </body>
 
 </html>

@@ -1,27 +1,29 @@
 const connection = require("../config/database")
-const mysql = require('mysql2')
-const getHomepage = (req, res) => {
-    res.render('home.ejs')
+const {getAllUser} = require("../services/CRUDservices")
+
+
+const getHomepage = async (req, res) => {
+    const results = await getAllUser();
+    return res.render('home.ejs', {listUser : results})
 }
+
 
 const getABC = (req, res) => {
     res.send("get ABC")
 }
-
-const postNewUser =(req, res) => {
+const getAddUserPage = (req, res) => {
+    res.render('create.ejs')
+}
+const postNewUser = async (req, res) => {
     let email = req.body.email
     let name = req.body.myname
     let city = req.body.city
     // let {email, name, city} = req.body;
     // console.log("email= ", email, 'name= ', name, 'city=', city)
-    connection.query(
+    const[results, fields] = await connection.query(
         `INSERT INTO USER(email, name, city) 
         VALUE(?, ?, ?)`,
-        [email, name, city],
-        function (err, results) {
-          console.log(">>>check results:", results);
-          res.send("create user sucess!")
-        })
+        [email, name, city],)
     
     // connection.query(
     //     'SELECT * FROM USER',
@@ -37,5 +39,6 @@ const postNewUser =(req, res) => {
 module.exports = {
     getHomepage,
     getABC,
-    postNewUser
+    postNewUser,
+    getAddUserPage
 }
